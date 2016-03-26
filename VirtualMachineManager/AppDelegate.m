@@ -122,12 +122,12 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
         [alert setMessageText:@"Unable to Connect to VMWare Fusion"];
         [alert runModal];
     }
-    Vix_ReleaseHandle(jobHandle);
 }
 
 
 -(void) connectToVM{
     const char* vmPath = [[self.vmPathText stringValue] UTF8String];
+    Vix_ReleaseHandle(jobHandle);
     jobHandle = VixVM_Open(hostHandle,
                            vmPath,
                            NULL, // VixEventProc *callbackProc,
@@ -145,13 +145,13 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
 }
 
 -(void)powerUpVM {
+    Vix_ReleaseHandle(jobHandle);
     jobHandle = VixVM_PowerOn(vmHandle,
                               VIX_VMPOWEROP_LAUNCH_GUI,
                               VIX_INVALID_HANDLE,
                               NULL, // *callbackProc,
                               NULL); // *clientData);
     vx_Error = VixJob_Wait(jobHandle, VIX_PROPERTY_NONE);
-    Vix_ReleaseHandle(jobHandle);
     if (VIX_FAILED(vx_Error)) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"Unable to Power Up VM"];
@@ -161,15 +161,12 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
 }
 
 -(void)powerOffVM{
-    
+    Vix_ReleaseHandle(jobHandle);
     jobHandle = VixVM_PowerOff(vmHandle,
                                VIX_VMPOWEROP_NORMAL,
                                NULL, // *callbackProc,
                                NULL); // *clientData);
-    vx_Error = VixJob_Wait(jobHandle, VIX_PROPERTY_NONE);
-    Vix_ReleaseHandle(jobHandle);
-    Vix_ReleaseHandle(vmHandle);
-    if (VIX_FAILED(vx_Error)) {
+    vx_Error = VixJob_Wait(jobHandle, VIX_PROPERTY_NONE);    if (VIX_FAILED(vx_Error)) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"Unable to Power Off VM"];
         [alert runModal];
@@ -178,6 +175,7 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
 }
 
 -(void) loginToVM{
+    Vix_ReleaseHandle(jobHandle);
     jobHandle = VixVM_LoginInGuest(vmHandle,
                                    [[self.txtUsername stringValue] UTF8String],           // guest OS user
                                    [[self.txtPassword stringValue] UTF8String],           // guest OS passwd
@@ -185,7 +183,6 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
                                    NULL,                     // callback
                                    NULL);                    // client data
     vx_Error = VixJob_Wait(jobHandle, VIX_PROPERTY_NONE);
-    Vix_ReleaseHandle(jobHandle);
     if (VIX_FAILED(vx_Error)) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"failed to login to virtual machine"];
@@ -195,6 +192,7 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
 }
 
 -(void) suspendVM {
+    Vix_ReleaseHandle(jobHandle);
     jobHandle = VixVM_Suspend(vmHandle,
                               VIX_VMPOWEROP_NORMAL,
                               NULL, // *callbackProc,
@@ -203,8 +201,6 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
     if (VIX_FAILED(vx_Error)) {
         [self Abort];
     }
-    
-    Vix_ReleaseHandle(jobHandle);
 }
 
 
