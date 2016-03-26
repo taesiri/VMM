@@ -700,7 +700,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Virtual Machine" identifier="1" id="pMg-VK-zNS">
-                                <view key="view" ambiguous="YES" id="vUC-ic-7q8">
+                                <view key="view" id="vUC-ic-7q8">
                                     <rect key="frame" x="10" y="33" width="434" height="231"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -888,7 +888,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Snapshot" identifier="" id="XxR-H7-wkT">
-                                <view key="view" id="rH7-hf-84r">
+                                <view key="view" ambiguous="YES" id="rH7-hf-84r">
                                     <rect key="frame" x="10" y="33" width="434" height="231"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -918,7 +918,7 @@
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXB-49-Zd8">
                                             <rect key="frame" x="11" y="64" width="412" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Take Disk Snapshot (VM must be Off)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="55a-rI-ll6">
+                                            <buttonCell key="cell" type="push" title="Take Disk Snapshot" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="55a-rI-ll6">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
