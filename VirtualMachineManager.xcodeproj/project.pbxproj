@@ -11,7 +11,22 @@
 		AAC97DC21CA6BF6900FEE5DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC97DC11CA6BF6900FEE5DB /* main.m */; };
 		AAC97DC41CA6BF6900FEE5DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC97DC31CA6BF6900FEE5DB /* Assets.xcassets */; };
 		AAC97DC71CA6BF6900FEE5DB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAC97DC51CA6BF6900FEE5DB /* MainMenu.xib */; };
+		AAC97DD21CA6BF9200FEE5DB /* libvixAllProducts.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC97DD11CA6BF9200FEE5DB /* libvixAllProducts.dylib */; };
+		AAC97DD41CA6BF9C00FEE5DB /* libvixAllProducts.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC97DD11CA6BF9200FEE5DB /* libvixAllProducts.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AAC97DD31CA6BF9A00FEE5DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				AAC97DD41CA6BF9C00FEE5DB /* libvixAllProducts.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AAC97DBA1CA6BF6900FEE5DB /* VirtualMachineManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualMachineManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,6 +36,10 @@
 		AAC97DC31CA6BF6900FEE5DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAC97DC61CA6BF6900FEE5DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AAC97DC81CA6BF6900FEE5DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC97DCE1CA6BF8B00FEE5DB /* includeCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = includeCheck.h; sourceTree = "<group>"; };
+		AAC97DCF1CA6BF8B00FEE5DB /* vix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vix.h; sourceTree = "<group>"; };
+		AAC97DD01CA6BF8B00FEE5DB /* vm_basic_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_basic_types.h; sourceTree = "<group>"; };
+		AAC97DD11CA6BF9200FEE5DB /* libvixAllProducts.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libvixAllProducts.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC97DD21CA6BF9200FEE5DB /* libvixAllProducts.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +57,10 @@
 		AAC97DB11CA6BF6900FEE5DB = {
 			isa = PBXGroup;
 			children = (
+				AAC97DCE1CA6BF8B00FEE5DB /* includeCheck.h */,
+				AAC97DCF1CA6BF8B00FEE5DB /* vix.h */,
+				AAC97DD01CA6BF8B00FEE5DB /* vm_basic_types.h */,
+				AAC97DD11CA6BF9200FEE5DB /* libvixAllProducts.dylib */,
 				AAC97DBC1CA6BF6900FEE5DB /* VirtualMachineManager */,
 				AAC97DBB1CA6BF6900FEE5DB /* Products */,
 			);
@@ -81,6 +105,7 @@
 				AAC97DB61CA6BF6900FEE5DB /* Sources */,
 				AAC97DB71CA6BF6900FEE5DB /* Frameworks */,
 				AAC97DB81CA6BF6900FEE5DB /* Resources */,
+				AAC97DD31CA6BF9A00FEE5DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -245,6 +270,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = VirtualMachineManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.taesiri.VirtualMachineManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -257,6 +286,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = VirtualMachineManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.taesiri.VirtualMachineManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
