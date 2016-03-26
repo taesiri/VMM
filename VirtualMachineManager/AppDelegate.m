@@ -323,14 +323,33 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
 }
 
 -(void) setIPAddress {
+    //ip addr flush dev eth0
+
     NSString *address = [NSString stringWithFormat:@"%@%@%@", [self.txtIpAddress stringValue], @"/", [self.txtNetMask stringValue]];
     NSString *interfaceName = [self.comboNetworkAdpaters objectValueOfSelectedItem];
-    NSString *command = [NSString stringWithFormat:@"%@%@%@%@", @"addr add ", address, @" dev ", interfaceName];
-    
+    NSString *flushIpCommand = [NSString stringWithFormat:@"%@%@", @"addr flush dev ",  interfaceName];
+    NSString *setIpCommand = [NSString stringWithFormat:@"%@%@%@%@", @"addr add ", address, @" dev ", interfaceName];
     
     jobHandle = VixVM_RunProgramInGuest(vmHandle,
                                         "/sbin/ip",                // command
-                                        [command UTF8String],   // cmd args
+                                        [flushIpCommand UTF8String],   // cmd args
+                                        0,                        // options
+                                        VIX_INVALID_HANDLE,       // prop handle
+                                        NULL,                     // callback
+                                        NULL);                    // client data
+    vx_Error = VixJob_Wait(jobHandle, VIX_PROPERTY_NONE);
+    Vix_ReleaseHandle(jobHandle);
+    if (VIX_FAILED(vx_Error)) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"failed to run program in virtual machine "];
+        [alert runModal];
+        [self Abort];
+    }
+
+    
+    jobHandle = VixVM_RunProgramInGuest(vmHandle,
+                                        "/sbin/ip",                // command
+                                        [setIpCommand UTF8String],   // cmd args
                                         0,                        // options
                                         VIX_INVALID_HANDLE,       // prop handle
                                         NULL,                     // callback
@@ -363,6 +382,7 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
         [alert setMessageText:@"failed to run program in virtual machine "];
         [alert runModal];
         [self Abort];
+        return;
     }
     
     jobHandle = VixVM_RunProgramInGuest(vmHandle,
@@ -379,6 +399,7 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
         [alert setMessageText:@"failed to run program in virtual machine "];
         [alert runModal];
         [self Abort];
+        return;
     }
     
     
@@ -397,16 +418,18 @@ VixHandle snapshotHandle = VIX_INVALID_HANDLE;
         [alert setMessageText:@"failed to copy file to the host"];
         [alert runModal];
         [self Abort];
+        return;
     }
     
     NSString *retrieveFile = [NSString stringWithContentsOfFile:@NETWORK_INTERFACES encoding:NSUTF8StringEncoding error:nil];
     
     networkInterfaces = [[NSMutableArray alloc] initWithArray:[retrieveFile componentsSeparatedByString:@"\n\n"] copyItems: YES];
     
+    [self.comboNetworkAdpaters removeAllItems];
     
     for(NSString* nic in networkInterfaces){
         if([nic length]>1){
-            [self.comboNetworkAdpaters addItemWithObjectValue:nic];
+            [self.comboNetworkAdpaters addItemWithObjectValue:[nic stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         }
     }
 }
